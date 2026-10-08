@@ -142,6 +142,7 @@ Two temporary tables (#Sales and #Location) were created at the start of the scr
 The #Sales table captures all orders from 2023 onwards. It explores the connection between the tables Sales.SalesOrderHeader and Sales.Customer on CustomerID, represented in Figure 2.
 
 ![Confusion matrix](images/Sales.png)
+
 *Figure 2 - Connections used for the creation of #Sales*
 
 The #Location table captures US based addresses with their state and city. This query explores the connection between four tables, Person.BusinessEntityAddress with Person.Address on AddressID, Person.Address with Person.AddressType on AddressTypeID and Person.AddressType with Person.StateProvince on StateProvinceID.
