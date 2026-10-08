@@ -21,7 +21,7 @@ Adventure Works currently sells exclusively through retail store partners and it
 ---
 
 ## Group Information
-´´´text
+
 **Group Name:** Group_AA_TP1
 
 | Student Name | Student ID |
@@ -30,7 +30,7 @@ Adventure Works currently sells exclusively through retail store partners and it
 | **Student 2** | 20250984 (Beatriz Farreca) |
 | **Student 3** | 20250986 (Ricardo Barracho) |
 | **Student 4** | 20250983 (Tomás Valverde) |
-´´´
+
 ---
 
 ## Auction System Design and Implementation
@@ -146,15 +146,16 @@ The final query then takes advantage of the connection between BusinessEntityID 
 ### Results and Recommendation
 Based on the query results from the AdventureWorks dataset, the two recommended cities for Adventure Works' first brick-and-mortar stores are presented in Table 1. 
 These cities show the highest aggregated individual customer purchasing volume in the US among all locations not already served by a top-30 reseller store.
-
-Table 1 - Cities recommendation
-Rank	City
-1st	Bellflower
-2nd	Burbank
-
 The exclusion of the top-30 reseller cities ensures that AdventureWorks does not compete directly with its own reseller network. 
 At the same time, selecting cities based on individual customer spending makes it more likely that the new stores will capture strong retail demand from customers already familiar with the brand through online purchases. 
 Together, the two chosen cities represent new retail opportunities supported by clear demand signals.
+
+#### Table 1 - Cities recommendation
+
+| Rank | City |
+| :--- | :--- |
+| 1st | Bellflower |
+| 2nd | Burbank |
 
 ---
 
