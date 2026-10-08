@@ -79,8 +79,10 @@ The Auction.BidHistory table was used to hold the information for every bid made
 The Auction.StatusType is a pre-populated table that is only used for storage of status name. It consists of only 2 fields:
 - StatusID – Primary key. It holds a unique value for each line generated automatically;
 - StatusName – The name of each status.
-The Auction.StatusType table is pre-populated with five states: Active, Hold, Cancelled, Expired, and Sold. The “Hold” status supports products added before the auction's official start date. These are automatically converted to “Active” once the auction start date is reached.
+The Auction.StatusType table is pre-populated with five states: Active, Hold, Cancelled, Expired, and Sold. The “Hold” status supports products added before the auction's official start date. These are automatically converted to “Active” once the auction start date is reached. Figure 1 shows the tables created for the Auction schema. 
 
+![Confusion matrix](images/Auction Schema.png)
+*Figure 1 - Auction Schema*
 
 ### Idempotent Script Design
 The Auction.sql script is fully idempotent. Schema and table creation blocks were used, IF NOT EXISTS guards, ensuring that re-execution on a live database does not result in errors or duplicate data. Any population of the tables are added only during table creation, never on subsequent runs. 
@@ -137,9 +139,16 @@ In order to achieve the main goal of this business case - identifying the two be
 ### Query Design
 The thought process behind designing the necessary queries to achieve the required output is essential to ensure that all components are properly connected and that no redundant operations are performed.  
 Two temporary tables (#Sales and #Location) were created at the start of the script to avoid repeated joins across large tables. Each table was created with the help of a Common Table Expression (CTE).  
-The #Sales table captures all orders from 2023 onwards. It explores the connection between the tables Sales.SalesOrderHeader and Sales.Customer on CustomerID.
+The #Sales table captures all orders from 2023 onwards. It explores the connection between the tables Sales.SalesOrderHeader and Sales.Customer on CustomerID, represented in Figure 2.
+
+![Confusion matrix](images/Sales.png)
+*Figure 2 - Connections used for the creation of #Sales*
 
 The #Location table captures US based addresses with their state and city. This query explores the connection between four tables, Person.BusinessEntityAddress with Person.Address on AddressID, Person.Address with Person.AddressType on AddressTypeID and Person.AddressType with Person.StateProvince on StateProvinceID.
+
+![Confusion matrix](images/Location.png)
+*Figure 3 - Connections used for the creation of #Location*
+
 The Top_30 CTE computes total revenue per store for the three-year window and selects the 30 highest-revenue stores. It connects the temporary tables #Sales and #Location on StoreID with BusinessEntityID where StoreID is not null. Additionally, AddressTypeID is considered as Main office only.  
 The final query then takes advantage of the connection between BusinessEntityID and PersonID (where StoreID is null) and aggregates individual customer revenue by city, excluding cities in the Top_30 CTE, and returns the two highest-revenue cities.
 
@@ -150,7 +159,7 @@ The exclusion of the top-30 reseller cities ensures that AdventureWorks does not
 At the same time, selecting cities based on individual customer spending makes it more likely that the new stores will capture strong retail demand from customers already familiar with the brand through online purchases. 
 Together, the two chosen cities represent new retail opportunities supported by clear demand signals.
 
-#### Table 1 - Cities recommendation
+*Table 1 - Cities recommendation*
 
 | Rank | City |
 | :--- | :--- |
