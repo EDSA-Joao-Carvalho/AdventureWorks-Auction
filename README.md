@@ -81,7 +81,7 @@ The Auction.StatusType is a pre-populated table that is only used for storage of
 - StatusName – The name of each status.
 The Auction.StatusType table is pre-populated with five states: Active, Hold, Cancelled, Expired, and Sold. The “Hold” status supports products added before the auction's official start date. These are automatically converted to “Active” once the auction start date is reached. Figure 1 shows the tables created for the Auction schema. 
 
-![Confusion matrix](images/Auction Schema.png)
+![Confusion matrix](images/AuctionSchema.png)
 *Figure 1 - Auction Schema*
 
 ### Idempotent Script Design
